@@ -9,7 +9,11 @@ An original 2D browser platform adventure with 40 worlds across eight regions, w
 4. Open the website URL shown by GitHub Pages after deployment finishes.
 
 ## Vercel
-Import the GitHub repository, choose Other as the framework, leave the build command empty, and use the repository root as the output directory. No server, API key, or package installation is required.
+Upload all extracted files and the entire assets folder to the repository root. The index.html, package.json, build.mjs and vercel.json files must be together.
+
+In Vercel, import this repository and set Root Directory to the folder containing vercel.json (leave it empty if the files are at repository root). Framework: Other. Build Command: node build.mjs. Output Directory: dist. The included vercel.json supplies these settings automatically. Redeploy after uploading the updated files.
+
+If the site still does not show, send the deployment URL and build error. A missing assets folder stops artwork from loading. Download and extract the ZIP before uploading; uploading the ZIP itself does not deploy the game.
 
 ## Play locally
 Serve this folder with a local static web server, for example: python -m http.server 8000
