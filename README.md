@@ -40,3 +40,12 @@ Static HTML, CSS, JavaScript, and original generated sprite artwork. No private 
 
 ## Validation
 JavaScript syntax and game-logic checks passed for 40-world progression, boss gates, double jump, checkpoints, power-ups, growth/shrink, block rewards, fireballs, the 480-tick star timer, and music scheduling. Live browser playback has not been verified.
+
+
+## Quest Hub upgrade
+
+The game includes a Quest Hub with a daily seeded challenge, three daily missions, claimable crystal rewards, a crystal bank, four unlockable hero looks, achievement milestones, region completion tracking and one-to-three-star world grades. The daily challenge uses a date-based seed so its route is stable for that calendar day.
+
+Player name, progress, best results, crystals, missions, achievements and outfit unlocks are saved locally in the current browser. They do not yet sync between devices or appear on a global leaderboard. The website labels daily records as personal device records.
+
+The production build checks the game and Quest Hub JavaScript syntax before publishing.
