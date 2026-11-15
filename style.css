@@ -2,3 +2,98 @@
 *{box-sizing:border-box}body{margin:0;background:#080f20;color:#f5f8ff;font-family:Outfit,system-ui,sans-serif}main{max-width:1500px;margin:auto;padding:24px 36px}header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;font-weight:900;font-size:22px;letter-spacing:2px}.brand small{display:block;font-size:12px;letter-spacing:3px;color:#91a3c2}.mark{font-size:37px;color:#5ae8cd}.actions{display:flex;gap:8px}button{font:600 14px Outfit,system-ui;cursor:pointer;color:#dbe7ff;background:#18243c;border:1px solid #34435f;border-radius:9px;padding:10px 15px}button:hover{background:#283b59}button:focus-visible{outline:3px solid #5ae8cd;outline-offset:3px}.game{position:relative;overflow:hidden;border-radius:18px;border:1px solid #2a3b58;background:#102647;aspect-ratio:16/9;box-shadow:0 22px 70px #0005}canvas{width:100%;height:100%;display:block}.hud{position:absolute;top:25px;left:28px;right:28px;display:flex;justify-content:space-between;pointer-events:none}.hud>div{background:#081329b8;backdrop-filter:blur(12px);border:1px solid #ffffff19;border-radius:12px;padding:12px 18px}.hud span{font-size:14px;font-weight:600;letter-spacing:1.5px}.hud strong{display:block;color:#ff8d97;letter-spacing:6px;margin-top:7px}.stats{display:flex;align-items:center;gap:28px}.stats span:first-child{color:#ffd876}.overlay{position:absolute;inset:0;display:flex;align-items:center;padding:6% 8%;background:linear-gradient(90deg,#07182cec,#07182c66 65%,transparent)}.intro{max-width:650px}.eyebrow{color:#7aefda;font-size:13px;letter-spacing:3px;font-weight:700}h1{font-size:clamp(36px,6vw,92px);line-height:.94;letter-spacing:-3px;margin:22px 0;font-weight:900;text-shadow:0 5px 0 #0002}h1 em{color:#5ae8cd;font-style:normal}p{font-size:18px;line-height:1.6;color:#bfd0e7}.primary{background:#64eed1;color:#09273b;border:0;padding:16px 24px;min-width:210px;font-size:17px;box-shadow:0 5px 0 #219b91}.primary:hover{background:#9affdf}.primary span{margin-left:32px}.worlds{display:flex;gap:16px;flex-wrap:wrap;color:#b3c6dd;font-size:13px;margin:30px 0 18px}.intro small{color:#8aa6c3;font-size:14px}footer{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:21px 2px}footer>div{display:flex;align-items:center;gap:20px;flex-wrap:wrap}footer span{font-size:14px;color:#b5c3db}.badge{font-size:12px;letter-spacing:2px;color:#5ae8cd}kbd{background:#18243c;border:1px solid #34435f;padding:3px 6px;margin-right:5px;border-radius:4px;font:12px inherit}footer p{font-size:13px;margin:0;color:#7d91ae}#toast{position:absolute;bottom:18%;left:50%;transform:translateX(-50%);background:#081329e0;color:#96f8da;padding:12px 22px;border-radius:9px;opacity:0;transition:opacity .2s;pointer-events:none;text-align:center}.touch{position:absolute;bottom:18px;left:18px;right:18px;display:none;justify-content:space-between}.touch>div{display:flex;gap:10px}.touch button{min-width:56px;min-height:52px;background:#0b1938aa;touch-action:none;user-select:none}.touch button:last-child{border-color:#5ae8cd}body.playing .touch{display:flex}@media(min-width:1000px) and (pointer:fine){body.playing .touch{display:none}}@media(max-width:700px){main{padding:12px}header{margin-bottom:12px}.brand{font-size:16px}.brand small{font-size:9px;letter-spacing:1px}.mark{font-size:28px}.actions{gap:5px}.actions button{font-size:12px;padding:8px}.actions #full{display:none}.game{aspect-ratio:auto;height:76vh;min-height:430px;border-radius:12px}.hud{top:14px;left:12px;right:12px}.hud>div{padding:8px 10px}.hud span{font-size:12px;letter-spacing:.5px}.stats{gap:12px}.overlay{padding:90px 24px 70px;align-items:center}h1{font-size:58px;letter-spacing:-2px}.intro p{font-size:16px}.worlds{gap:9px;margin-top:22px;font-size:12px}.eyebrow{font-size:11px;letter-spacing:2px}footer{padding-top:14px;display:block}footer>div{gap:12px}footer p{margin-top:14px}#toast{bottom:100px;min-width:240px}}
 .intro>button{margin:6px 10px 6px 0}.menu-note{font-size:14px;color:#90a9c7}.world-picker{width:100%;max-height:100%;overflow:auto;padding:6px 10px 24px}.world-picker h2{font-size:28px;margin:0 0 20px}.world-picker h3{font-size:16px;color:#6cebd2;margin:20px 0 9px}.world-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.world-row button{text-align:left;font-size:14px;padding:12px;min-height:60px}.world-row button:disabled{opacity:.38;cursor:default}.overlay:has(.world-picker){background:#07182cf5;padding:35px 5% 20px}.stats #ability{font-size:12px;color:#78e8d6;letter-spacing:.5px}.hud span#world{letter-spacing:.5px}.intro h1{max-width:650px}.game:fullscreen{border-radius:0;width:100vw;height:100vh;aspect-ratio:auto}button:disabled:hover{background:#18243c}@media(max-width:700px){header{flex-wrap:wrap;gap:10px}.actions{margin-left:auto}.actions #worlds{display:inline-block}.world-row{grid-template-columns:repeat(2,1fr)}.world-row button{font-size:13px;min-height:52px}.overlay:has(.world-picker){padding:20px 16px}.hud #world{font-size:11px;max-width:200px;display:block}.stats{flex-direction:column;gap:2px;justify-content:center;padding:7px!important}.stats #time{font-size:11px}.stats #ability{font-size:10px}.intro h1{font-size:45px!important}.intro p{font-size:15px}.intro>button{padding:12px 15px;min-width:150px}.menu-note{font-size:12px!important}}
 .stats #form{font-size:12px;color:#ffc47d;letter-spacing:.5px}.touch button[data-key=f]{color:#ffbc69;border-color:#ffab58}.stats{gap:16px}@media(max-width:700px){.stats #form{font-size:10px}.touch{left:10px;right:10px}.touch>div{gap:5px}.touch button{min-width:46px;padding:9px;min-height:48px;font-size:12px}footer>div{gap:10px}.hud #world{max-width:190px}}
+
+
+/* Ethan Quest Hub upgrade */
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+#hub-shortcut{border-color:#3d6979;color:#9bffeb}
+#daily-shortcut{background:#5ae8cd;color:#08253b;border-color:#5ae8cd}
+.quest-hub{margin:34px 0 12px;padding:30px;border:1px solid #223b5a;border-radius:22px;background:radial-gradient(ellipse at 85% -10%,#174a5a 0,transparent 37%),linear-gradient(145deg,#101d35,#0b1528 62%,#101d32);box-shadow:0 24px 70px #0005}
+.hub-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:25px}
+.hub-kicker,.mini-label{display:block;color:#65e6d0;font-size:11px;font-weight:800;letter-spacing:2px}
+.hub-heading h2{margin:8px 0 6px;font-size:clamp(26px,3vw,42px);letter-spacing:-1.2px}
+.hub-heading p,.card-subtitle{margin:0;color:#92a9c5;font-size:14px;line-height:1.55}
+.adventurer-card{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #2a4765;border-radius:13px;background:#0b1830}
+.avatar-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#5ae8cd,#3ca9bf);color:#09253b;font-size:23px}
+.adventurer-fields{display:grid;gap:5px}
+.adventurer-fields label{font-size:9px;color:#7390ae;letter-spacing:1.5px;font-weight:800}
+.adventurer-fields input{width:145px;background:transparent;border:0;border-bottom:1px solid #33516c;border-radius:0;padding:4px 0;color:#f4f8ff;font:600 14px Outfit,sans-serif;outline:none}
+.adventurer-fields input:focus{border-color:#5ae8cd}
+.adventurer-card button,.skin-option button,.claim-button{padding:8px 11px;font-size:11px;border-radius:8px}
+.hub-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 15px}
+.hub-stats>div{padding:15px 17px;border:1px solid #263f5d;border-radius:13px;background:#111f38}
+.hub-stats span{display:block;font-size:9px;color:#7f9ab8;letter-spacing:1.6px;font-weight:800}
+.hub-stats strong{display:block;margin:6px 0 2px;color:#f3fbff;font-size:25px;letter-spacing:-.5px}
+.hub-stats small{color:#8099b4;font-size:11px}
+.hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.hub-card{min-width:0;border:1px solid #294360;border-radius:16px;padding:20px;background:linear-gradient(145deg,#142641,#101d34)}
+.daily-spotlight{position:relative;overflow:hidden;background:radial-gradient(circle at 100% 0,#146a70 0,transparent 46%),linear-gradient(140deg,#173e55,#101d34 75%)}
+.daily-spotlight:after{content:"";position:absolute;width:170px;height:170px;border:1px solid #83f7dd33;border-radius:50%;right:-58px;top:38px;box-shadow:0 0 0 20px #83f7dd0a,0 0 0 42px #83f7dd08;pointer-events:none}
+.card-topline,.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.live-dot{display:flex;align-items:center;gap:7px;color:#8cf3da;font-size:10px;font-weight:800;letter-spacing:1px}
+.live-dot:before{content:"";width:7px;height:7px;border-radius:50%;background:#65e6d0;box-shadow:0 0 14px #65e6d0}
+.daily-emblem{margin:15px 0 -5px;color:#ffdf87;font-size:28px;text-shadow:0 0 24px #ffdf8777}
+.hub-card h3{margin:10px 0 7px;font-size:22px;letter-spacing:-.5px}
+.daily-spotlight p,.continue-card p{max-width:440px;color:#adc0d6;font-size:13px;line-height:1.6}
+.daily-meta{display:flex;gap:15px;flex-wrap:wrap;margin:19px 0 15px;color:#a2c2d2;font-size:11px}
+.hub-primary,.hub-secondary{padding:11px 15px;border-radius:9px;font-size:12px}
+.hub-primary{background:#5ae8cd;color:#08263a;border:1px solid #5ae8cd;font-weight:800}
+.hub-primary:hover{background:#8df5dc}
+.hub-secondary{background:#172a44;border:1px solid #385675}
+.daily-spotlight .hub-primary{position:relative;z-index:1;width:100%;text-align:left;display:flex;justify-content:space-between}
+.device-note{display:block;margin-top:10px;color:#7fa9b9;font-size:10px}
+.continue-card{background:radial-gradient(circle at 85% 0,#374376 0,transparent 43%),linear-gradient(145deg,#192746,#111c33)}
+.journey-mark{color:#8095ba;font-size:10px;font-weight:800;letter-spacing:1px}
+.region-label{display:block;margin-top:20px;color:#72e7d1;font-size:10px;letter-spacing:2px;font-weight:800}
+.continue-card h3{font-size:28px;margin:8px 0}
+.journey-progress,.mission-meter,.region-meter{height:7px;border-radius:99px;background:#243b56;overflow:hidden}
+.journey-progress{margin:20px 0 8px;height:8px}
+.journey-progress span,.mission-meter span,.region-meter span{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#4bcab9,#9af0cd);transition:width .25s ease}
+.journey-meta{display:flex;justify-content:space-between;color:#88a4c2;font-size:10px}
+.hub-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:19px}
+.mission-card,.wardrobe-card,.regions-card,.achievements-card{background:linear-gradient(145deg,#14243d,#101a30)}
+.mission-count,.achievement-count{color:#8ca9c5;font-size:11px}
+.mission-list{display:grid;gap:10px;margin-top:15px}
+.mission-row{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #273d59}
+.mission-symbol{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#173d4a;color:#75f0d4}
+.mission-copy{min-width:0;display:grid;gap:3px}
+.mission-copy strong,.skin-copy strong,.achievement-row strong{font-size:12px;color:#e8f1fc}
+.mission-copy small,.skin-copy small,.achievement-row small{display:block;color:#819bb7;font-size:10px;line-height:1.45}
+.mission-meter{height:4px;margin:4px 0 2px}
+.claim-button{min-width:76px}
+.claim-button:not(:disabled){background:#5ae8cd;color:#092a3b;border-color:#5ae8cd}
+.claim-button:disabled{opacity:.48;cursor:default}
+.skin-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}
+.skin-option{display:grid;grid-template-columns:36px minmax(0,1fr);gap:8px;align-items:center;padding:9px;border:1px solid #2b425d;border-radius:11px;background:#0f1b31}
+.skin-option.equipped{border-color:#62e5d1;background:#10303d}
+.skin-preview{grid-row:span 2;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;color:#09283b;background:linear-gradient(135deg,#59e5d0,#a8fae2)}
+.skin-sun{background:linear-gradient(135deg,#f4aa48,#ffe9a8)}
+.skin-royal{background:linear-gradient(135deg,#9165f0,#e0b8ff)}
+.skin-shadow{background:linear-gradient(135deg,#435273,#a4b0d1);color:#fff}
+.skin-copy{min-width:0}
+.skin-copy strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.skin-option button{grid-column:2;justify-self:start}
+.skin-option button:not(:disabled){border-color:#44617f;background:#1b3550}
+.skin-option.equipped button{color:#76f0d8}
+.hub-lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.section-title h3{margin:6px 0 0}
+.region-list{display:grid;gap:12px;margin-top:17px}
+.region-row{display:grid;grid-template-columns:minmax(100px,1.1fr) 1.5fr 34px;gap:9px;align-items:center}
+.region-name{color:#dce8f6;font-size:11px;font-weight:600}
+.region-meter{height:5px}
+.region-status{color:#84a1bf;text-align:right;font-size:10px}
+.region-stars{grid-column:2/4;color:#e7c779;font-size:9px;letter-spacing:2px;margin-top:-6px;white-space:nowrap}
+.achievement-list{display:grid;gap:9px;margin-top:16px}
+.achievement-row{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:9px;padding:8px 0;border-top:1px solid #263d58}
+.achievement-icon{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#27324c;color:#8090a8;font-size:19px}
+.achievement-row.unlocked .achievement-icon{background:#254c4d;color:#82f1d5}
+.achievement-row.locked{opacity:.65}
+.achievement-row>div{min-width:0}
+.achievement-row b{color:#7fe2ce;font-size:9px;letter-spacing:.5px;white-space:nowrap}
+.achievement-row.locked b{color:#8095b0}
+.hub-footnote{display:flex;gap:9px;align-items:center;margin-top:18px;color:#849bb5;font-size:11px;line-height:1.5}
+.hub-footnote span{color:#79e8d0;font-size:15px}
+.hub-feedback{position:sticky;bottom:15px;width:max-content;max-width:100%;margin:10px auto 0;padding:9px 15px;border:1px solid #4a938b;border-radius:9px;background:#123a3c;color:#a5ffdf;font-size:12px;opacity:0;transform:translateY(8px);pointer-events:none;transition:all .2s}
+.hub-feedback.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.quest-hub{padding:22px}.hub-stats{grid-template-columns:repeat(2,1fr)}.hub-grid,.hub-lower{grid-template-columns:1fr}}
+@media(max-width:600px){.quest-hub{padding:15px;margin-top:20px;border-radius:15px}.hub-heading{display:grid}.adventurer-card{justify-content:start}.hub-stats{gap:7px}.hub-stats>div{padding:11px}.hub-stats strong{font-size:21px}.hub-card{padding:15px}.skin-list{grid-template-columns:1fr 1fr}.mission-row{grid-template-columns:30px minmax(0,1fr) auto;gap:7px}.claim-button{min-width:66px;padding:7px 6px}.region-row{grid-template-columns:minmax(90px,1fr) 1.1fr 30px}.hub-heading h2{font-size:27px}.hub-heading p{font-size:12px}.adventurer-fields input{width:120px}#hub-shortcut{display:none}}
