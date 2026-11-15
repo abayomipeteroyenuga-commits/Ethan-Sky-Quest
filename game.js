@@ -61,7 +61,7 @@ function syncDailyStats(){
  if(worldGems>(Number(stat.bestWorldGems)||0)){stat.bestWorldGems=worldGems;changed=true}
  if(bossDefeated&&!stat.guardianDefeated){stat.guardianDefeated=true;changed=true}
  if(!saved.dailyStats[date]){saved.dailyStats[date]=stat;changed=true}
- if(changed)persist();
+ if(changed){persist();notifyQuestHub()}
 }
 function getDailyMissions(){
  const date=dateKey(),stat=saved.dailyStats?.[date]||{},claims=new Set(saved.dailyClaims?.[date]||[]);
