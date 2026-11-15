@@ -72,7 +72,7 @@ function getDailyMissions(){
   {id:'finish',name:'World Walker',description:'Complete any world today',progress:finished?1:0,goal:1,reward:15,ready:finished}
  ].map(m=>({...m,claimed:claims.has(m.id)}));
 }
-function recordGuardianDefeat(){if(bossDefeated)return;bossDefeated=true;syncDailyStats();notifyQuestHub()}
+function recordGuardianDefeat(){if(bossDefeated)return;bossDefeated=true;saved.guardiansDefeated=(Number(saved.guardiansDefeated)||0)+1;evaluateAchievements();persist();syncDailyStats();notifyQuestHub()}
 function unlockAchievement(id){
  if(saved.achievements.includes(id))return false;
  const a=ACHIEVEMENT_DEFS.find(x=>x.id===id);if(!a)return false;
@@ -170,7 +170,7 @@ function completeWorld(){
  }else{
   const firstClear=!saved.completed.includes(level),old=saved.best[level],oldGems=Number(old?.gems)||0;
   const record=!old||worldGems>oldGems||(worldGems===oldGems&&worldTime<old.time);
-  if(firstClear){saved.completed.push(level);saved.guardiansDefeated=(Number(saved.guardiansDefeated)||0)+(bossDefeated?1:0)}
+  if(firstClear)saved.completed.push(level);
   if(record)saved.best[level]={gems:worldGems,time:Math.round(worldTime),stars};else if(old&&!old.stars)saved.best[level]={...old,stars};
   reward=(firstClear?10:0)+Math.max(0,worldGems-oldGems);saved.crystals+=reward;
   saved.unlocked=Math.max(saved.unlocked,Math.min(WORLD_COUNT,level+2));saved.resume=Math.min(WORLD_COUNT-1,level+1);evaluateAchievements();
