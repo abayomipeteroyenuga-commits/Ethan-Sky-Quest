@@ -49,3 +49,16 @@ The game includes a Quest Hub with a daily seeded challenge, three daily mission
 Player name, progress, best results, crystals, missions, achievements and outfit unlocks are saved locally in the current browser. They do not yet sync between devices or appear on a global leaderboard. The website labels daily records as personal device records.
 
 The production build checks the game and Quest Hub JavaScript syntax before publishing.
+
+
+## Progression safeguards
+
+- Each world independently keeps its highest crystal total, fastest completion time and best star grade.
+- Every region has its own completion achievement; Guardian milestones are awarded at 5, 20 and 40 victories.
+- Daily challenge completion builds a consecutive-day streak shown in the Quest Hub.
+- Players can export a JSON save backup and restore it later in the same browser. Imported data is validated and normalised before it replaces the local save.
+- Save data remains local to the browser. Export a backup before clearing browser data or switching devices.
+
+## Install and play offline
+
+Ethan Quest is installable as a Progressive Web App. After the first online visit, the service worker caches the game shell and original artwork so the game can load offline. The first cache may take a little time because the artwork is several megabytes. Daily challenge dates and progress are based on the device's local clock; global rankings and cross-device sync are not provided.
