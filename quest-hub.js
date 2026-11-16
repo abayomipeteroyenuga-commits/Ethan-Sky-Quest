@@ -65,6 +65,7 @@
     $('daily-record').textContent = daily.best
       ? 'Your best: ' + daily.best.gems + ' crystals · ' + daily.best.time + ' sec'
       : 'No personal record yet';
+    $('daily-streak').textContent = daily.streak ? '🔥 ' + daily.streak + '-day streak' : 'Start your streak today';
 
     const missions = state.missions || [];
     $('mission-count').textContent = missions.filter(item => item.claimed).length + ' / 3 claimed';
@@ -139,6 +140,35 @@
   });
   $('save-player-name').addEventListener('click', () => {
     feedback(window.ETHAN_QUEST.savePlayerName($('player-name').value).message);
+  });
+  $('export-save').addEventListener('click', () => {
+    const payload = window.ETHAN_QUEST.exportSave();
+    const blob = new Blob([payload], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'ethan-quest-save-' + new Date().toISOString().slice(0, 10) + '.json';
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+    feedback('Your Ethan Quest backup has been downloaded.');
+  });
+  $('import-save').addEventListener('click', () => $('import-save-file').click());
+  $('import-save-file').addEventListener('change', async event => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    try {
+      if (file.size > 1024 * 1024) throw new Error('Backup file is too large.');
+      const payload = JSON.parse(await file.text());
+      const result = window.ETHAN_QUEST.importSave(payload);
+      feedback(result.message);
+      refresh();
+    } catch (error) {
+      feedback(error instanceof Error ? error.message : 'Could not read this backup file.');
+    } finally {
+      event.target.value = '';
+    }
   });
   $('player-name').addEventListener('keydown', event => {
     if (event.key === 'Enter') {
