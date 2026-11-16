@@ -1,0 +1,20 @@
+{
+  "id": "./",
+  "name": "Ethan: Skybound Quest",
+  "short_name": "Ethan Quest",
+  "description": "Explore forty sky worlds, master your moves and defeat the Guardians.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#0b1425",
+  "theme_color": "#0b1425",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
