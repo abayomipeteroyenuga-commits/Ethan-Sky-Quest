@@ -97,3 +97,14 @@ html{scroll-behavior:smooth;scroll-padding-top:20px}
 .hub-feedback.visible{opacity:1;transform:translateY(0)}
 @media(max-width:900px){.quest-hub{padding:22px}.hub-stats{grid-template-columns:repeat(2,1fr)}.hub-grid,.hub-lower{grid-template-columns:1fr}}
 @media(max-width:600px){.quest-hub{padding:15px;margin-top:20px;border-radius:15px}.hub-heading{display:grid}.adventurer-card{justify-content:start}.hub-stats{gap:7px}.hub-stats>div{padding:11px}.hub-stats strong{font-size:21px}.hub-card{padding:15px}.skin-list{grid-template-columns:1fr 1fr}.mission-row{grid-template-columns:30px minmax(0,1fr) auto;gap:7px}.claim-button{min-width:66px;padding:7px 6px}.region-row{grid-template-columns:minmax(90px,1fr) 1.1fr 30px}.hub-heading h2{font-size:27px}.hub-heading p{font-size:12px}.adventurer-fields input{width:120px}#hub-shortcut,#daily-shortcut{display:none}}
+
+/* Progression polish: daily streak, backup controls and long achievement lists */
+.daily-meta #daily-streak{color:#ffdc86;font-weight:700}
+.achievement-list{max-height:420px;overflow:auto;padding-right:5px;scrollbar-width:thin}
+.hub-tools{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:13px;padding:14px 16px;border:1px solid #263e5a;border-radius:12px;background:#0e1a30}
+.hub-tools>div:first-child{display:grid;gap:4px}
+.hub-tools strong{font-size:12px;color:#dceafa}
+.hub-tools small{font-size:10px;color:#829ab4;line-height:1.5}
+.hub-tool-actions{display:flex;gap:8px;flex-wrap:wrap}
+.hub-tool-actions button{padding:9px 12px;font-size:11px}
+@media(max-width:600px){.hub-tools{align-items:stretch;flex-direction:column}.hub-tool-actions{display:grid;grid-template-columns:1fr 1fr}.hub-tool-actions button{padding:10px 7px}.daily-meta{gap:8px}}
