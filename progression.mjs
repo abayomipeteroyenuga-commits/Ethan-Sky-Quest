@@ -21,6 +21,34 @@ function shiftDateKey(key, offset) {
     String(date.getDate()).padStart(2, '0');
 }
 
+export function weeklyTrialSpec(value = new Date()) {
+  const input = value instanceof Date
+    ? value.getFullYear() + '-' + String(value.getMonth() + 1).padStart(2, '0') + '-' + String(value.getDate()).padStart(2, '0')
+    : typeof value === 'string' ? value : '';
+  if (!DATE_KEY.test(input)) return { weekKey: '', seed: 0, worlds: [] };
+
+  const [year, month, day] = input.split('-').map(Number);
+  const monday = new Date(year, month - 1, day, 12, 0, 0, 0);
+  monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+  const weekKey = monday.getFullYear() + '-' +
+    String(monday.getMonth() + 1).padStart(2, '0') + '-' +
+    String(monday.getDate()).padStart(2, '0');
+  const seed = Number(weekKey.replace(/-/g, '')) >>> 0;
+  const worlds = [];
+
+  for (let index = 0; index < 3; index += 1) {
+    let value = Math.imul(seed ^ Math.imul(index + 1, 0x9e3779b1), 0x85ebca6b) >>> 0;
+    value ^= value >>> 16;
+    value = Math.imul(value, 0xc2b2ae35) >>> 0;
+    value ^= value >>> 13;
+    let world = value % 40;
+    while (worlds.includes(world)) world = (world + 7) % 40;
+    worlds.push(world);
+  }
+
+  return { weekKey, seed, worlds };
+}
+
 export function normalizeSave(value, defaults) {
   const raw = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
   const completed = [...new Set(
@@ -87,6 +115,28 @@ export function normalizeSave(value, defaults) {
     }
   }
 
+  const bossRushRaw = raw.bossRush && typeof raw.bossRush === 'object' && !Array.isArray(raw.bossRush)
+    ? raw.bossRush : {};
+  const bossRush = {
+    completedRuns: safeInteger(bossRushRaw.completedRuns, 0),
+    bestTime: Number.isFinite(bossRushRaw.bestTime) && bossRushRaw.bestTime >= 0
+      ? Math.round(bossRushRaw.bestTime) : null,
+    bestGuardians: safeInteger(bossRushRaw.bestGuardians, 0, 0, 8),
+  };
+
+  const weeklyTrials = {};
+  if (raw.weeklyTrials && typeof raw.weeklyTrials === 'object' && !Array.isArray(raw.weeklyTrials)) {
+    for (const [week, record] of Object.entries(raw.weeklyTrials)) {
+      if (!DATE_KEY.test(week) || !record || typeof record !== 'object') continue;
+      weeklyTrials[week] = {
+        completedRuns: safeInteger(record.completedRuns, 0),
+        bestTime: Number.isFinite(record.bestTime) && record.bestTime >= 0
+          ? Math.round(record.bestTime) : null,
+        bestGems: safeInteger(record.bestGems, 0),
+      };
+    }
+  }
+
   const playerName = typeof raw.playerName === 'string'
     ? raw.playerName.replace(/[<>\u0000-\u001f]/g, '').trim().slice(0, 18)
     : defaults.playerName;
@@ -105,6 +155,9 @@ export function normalizeSave(value, defaults) {
     dailyClaims,
     dailyResults,
     guardiansDefeated: safeInteger(raw.guardiansDefeated, 0),
+    newGamePlus: safeInteger(raw.newGamePlus, 0, 0, 99),
+    bossRush,
+    weeklyTrials,
     playerName: playerName.length >= 2 ? playerName : defaults.playerName,
   };
 }

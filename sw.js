@@ -1,11 +1,11 @@
 'use strict';
-const CACHE_NAME = 'ethan-quest-v4';
+const CACHE_NAME = 'ethan-quest-v5';
 const APP_FILES = [
   './',
   './index.html',
   './style.css',
-  './game.js?v=quest-hub-v4',
-  './quest-hub.js?v=quest-hub-v4',
+  './game.js?v=endgame-v5',
+  './quest-hub.js?v=endgame-v5',
   './progression.mjs',
   './manifest.webmanifest',
   './icon.svg',

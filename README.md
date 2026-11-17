@@ -62,3 +62,11 @@ The production build checks the game and Quest Hub JavaScript syntax before publ
 ## Install and play offline
 
 Ethan Quest is installable as a Progressive Web App. After the first online visit, the service worker caches the game shell and original artwork so the game can load offline. The first cache may take a little time because the artwork is several megabytes. Daily challenge dates and progress are based on the device's local clock; global rankings and cross-device sync are not provided.
+
+
+## Endgame modes
+
+- **Boss Rush:** Clear the eight regional Guardian worlds in one run. Unlocks after five lifetime Guardian victories. Each Guardian clear restores one heart (up to three), and a complete run records the best time and awards bonus crystals.
+- **Weekly Sky Trials:** A deterministic three-world route is generated from the Monday week key. Every player on the same week gets the same route for that browser-local week; each weekly clear records personal best time and crystal totals.
+- **New Game+:** Unlock after completing all forty worlds in the current cycle. The next cycle resets only the current-cycle completion checklist and resume point; crystals, outfits, achievements and best world records remain. Enemy movement and Guardian health, speed and attack cadence increase with each cycle.
+- Save exports use version 4. Version 3 backups remain importable and are normalised with safe defaults for the new endgame records.
