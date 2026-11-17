@@ -205,7 +205,7 @@
     try {
       if (file.size > 1024 * 1024) throw new Error('Backup file is too large.');
       const payload = JSON.parse(await file.text());
-      if (payload?.format !== 'ethan-skybound-quest-save' || payload?.version !== 3) throw new Error('This is not a supported Ethan Quest backup.');
+      if (payload?.format !== 'ethan-skybound-quest-save' || ![3, 4].includes(payload?.version)) throw new Error('This is not a supported Ethan Quest backup.');
       if (!window.confirm('Restore this backup? It will replace the progress saved in this browser.')) return;
       const result = window.ETHAN_QUEST.importSave(payload);
       feedback(result.message);
