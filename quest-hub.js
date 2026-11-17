@@ -37,7 +37,8 @@
     const signature = JSON.stringify([
       state.crystals, state.completed, state.unlocked, state.guardiansDefeated,
       state.daily, state.missions, state.skins, state.achievements,
-      state.regions, state.playerName, state.resume
+      state.regions, state.playerName, state.resume,
+      state.newGamePlus, state.bossRush, state.weeklyTrial
     ]);
     if (signature === lastSignature) return;
     lastSignature = signature;
@@ -66,6 +67,26 @@
       ? 'Your best: ' + daily.best.gems + ' crystals · ' + daily.best.time + ' sec'
       : 'No personal record yet';
     $('daily-streak').textContent = daily.streak ? '🔥 ' + daily.streak + '-day streak' : 'Start your streak today';
+
+    const rush = state.bossRush || {};
+    $('boss-rush-status').textContent = rush.unlocked
+      ? (rush.completedRuns || 0) + ' clears · best run ' + (rush.bestTime == null ? '—' : rush.bestTime + ' sec')
+      : 'Defeat ' + Math.max(0, 5 - (state.guardiansDefeated || 0)) + ' more Guardians to unlock';
+    $('start-boss-rush').disabled = !rush.unlocked;
+
+    const trial = state.weeklyTrial || {};
+    $('weekly-trial-week').textContent = 'WEEK OF ' + (trial.weekKey || '—');
+    $('weekly-trial-worlds').textContent = (trial.worlds || []).map((world, index) =>
+      'Stage ' + (index + 1) + ': ' + world.name
+    ).join('  ·  ');
+    $('weekly-trial-status').textContent = trial.record
+      ? trial.record.completedRuns + ' clears · best ' + (trial.record.bestTime == null ? '—' : trial.record.bestTime + ' sec') + ' · ' + trial.record.bestGems + ' crystals'
+      : 'No clear recorded this week yet';
+
+    $('new-game-plus-status').textContent = state.newGamePlusUnlocked
+      ? 'Ready to begin cycle ' + ((state.newGamePlus || 0) + 1) + ' · lifetime records and rewards stay'
+      : 'Clear all 40 worlds in this cycle to unlock';
+    $('start-new-game-plus').disabled = !state.newGamePlusUnlocked;
 
     const missions = state.missions || [];
     $('mission-count').textContent = missions.filter(item => item.claimed).length + ' / 3 claimed';
@@ -138,6 +159,29 @@
   $('hub-shortcut').addEventListener('click', () => {
     $('quest-hub').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+  $('start-boss-rush').addEventListener('click', () => {
+    if (!window.ETHAN_QUEST.startBossRush()) {
+      feedback('Defeat five Guardians to unlock Boss Rush.');
+      return;
+    }
+    scrollToGame();
+  });
+  $('start-weekly-trial').addEventListener('click', () => {
+    if (!window.ETHAN_QUEST.startWeeklyTrial()) {
+      feedback('The Weekly Sky Trial could not be started. Refresh and try again.');
+      return;
+    }
+    scrollToGame();
+  });
+  $('start-new-game-plus').addEventListener('click', () => {
+    if (!window.confirm('Begin New Game+? Your current-cycle world checkmarks reset, but crystals, outfits, achievements and best records stay.')) return;
+    if (!window.ETHAN_QUEST.startNewGamePlus()) {
+      feedback('Complete all 40 worlds in this cycle before starting New Game+.');
+      return;
+    }
+    feedback('New Game+ started. Guardian difficulty has increased.');
+    scrollToGame();
+  });
   $('save-player-name').addEventListener('click', () => {
     feedback(window.ETHAN_QUEST.savePlayerName($('player-name').value).message);
   });
@@ -161,7 +205,7 @@
     try {
       if (file.size > 1024 * 1024) throw new Error('Backup file is too large.');
       const payload = JSON.parse(await file.text());
-      if (payload?.format !== 'ethan-skybound-quest-save' || payload?.version !== 3) throw new Error('This is not a supported Ethan Quest backup.');
+      if (payload?.format !== 'ethan-skybound-quest-save' || ![3, 4].includes(payload?.version)) throw new Error('This is not a supported Ethan Quest backup.');
       if (!window.confirm('Restore this backup? It will replace the progress saved in this browser.')) return;
       const result = window.ETHAN_QUEST.importSave(payload);
       feedback(result.message);
