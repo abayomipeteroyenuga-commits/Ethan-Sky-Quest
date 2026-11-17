@@ -40,7 +40,7 @@ export function weeklyTrialSpec(value = new Date()) {
     let value = Math.imul(seed ^ Math.imul(index + 1, 0x9e3779b1), 0x85ebca6b) >>> 0;
     value ^= value >>> 16;
     value = Math.imul(value, 0xc2b2ae35) >>> 0;
-    value ^= value >>> 13;
+    value = (value ^ (value >>> 13)) >>> 0;
     let world = value % 40;
     while (worlds.includes(world)) world = (world + 7) % 40;
     worlds.push(world);
