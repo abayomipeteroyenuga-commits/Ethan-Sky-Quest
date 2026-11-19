@@ -12,7 +12,9 @@ if(tests.status!==0)throw new Error('Progression tests failed:\n'+(tests.stderr|
 await mkdir(join(root,'dist'),{recursive:true});
 for(const name of ['index.html','style.css','game.js','quest-hub.js','quest-online.js','online-config.js','progression.mjs','manifest.webmanifest','sw.js','icon.svg'])await copyFile(join(root,name),join(root,'dist',name));
 const onlineConfig={supabaseUrl:process.env.QUEST_SUPABASE_URL||'',publishableKey:process.env.QUEST_SUPABASE_PUBLISHABLE_KEY||''};
-await writeFile(join(root,'dist','online-config.js'),'window.ETHAN_ONLINE_CONFIG = Object.freeze('+JSON.stringify(onlineConfig)+');\\n');
+await writeFile(join(root,'dist','online-config.js'),'window.ETHAN_ONLINE_CONFIG = Object.freeze('+JSON.stringify(onlineConfig)+');'+String.fromCharCode(10));
+const onlineConfigCheck=spawnSync(process.execPath,['--check',join(root,'dist','online-config.js')],{encoding:'utf8'});
+if(onlineConfigCheck.status!==0)throw new Error('Generated online config failed syntax validation:\n'+(onlineConfigCheck.stderr||onlineConfigCheck.stdout));
 await cp(join(root,'assets'),join(root,'dist/assets'),{recursive:true});
 for(const name of ['atlas.png','ethan-run.png','powerups.png','environments40.png','bosses40.png','tubes8.png'])await access(join(root,'dist/assets',name));
 console.log('Ethan Quest syntax checks, progression tests, six artwork checks and online configuration generation passed. Offline PWA files copied to dist.');
