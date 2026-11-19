@@ -20,7 +20,7 @@ const WORLD_COUNT=40,names=regions.flatMap(r=>r.worlds),saveKey='ethan-skybound-
 const DEFAULT_SAVE={unlocked:1,completed:[],best:{},resume:0,crystals:0,ownedSkins:['sky'],skin:'sky',achievements:[],dailyStats:{},dailyClaims:{},dailyResults:{},guardiansDefeated:0,newGamePlus:0,bossRush:{completedRuns:0,bestTime:null,bestGuardians:0},weeklyTrials:{},playerName:'Sky Explorer'};
 function readSaved(){try{return normalizeSave(JSON.parse(localStorage.getItem(saveKey)),DEFAULT_SAVE)}catch{return normalizeSave(null,DEFAULT_SAVE)}}
 let saved=readSaved();
-let mode='menu',level=0,hearts=3,total=0,worldGems=0,elapsed=0,worldTime=0,camera=0,checkpoint=80,checkpointId=0,invuln=0,dashCD=0,shield=0,particles=[],coins=[],enemies=[],platforms=[],powerups=[],shots=[],boss=null,keys={},last=0,acc=0,muted=false,audio=null,jumpBuffer=0,coyote=0,groundId=-1,runPhase=0,hero={},portal=0,portalY=470,worldWidth=0,toastTimer=0,ticks=0,tubes=[],tubeCD=0,blocks=[],drops=[],fireballs=[],starTimer=0,fireCD=0,musicTimer=null,musicBeat=0,musicNodes=new Set(),dailyMode=false,dailyDate='',dailySeed=0,bossDefeated=false,bossRushMode=false,bossRushQueue=[],bossRushIndex=0,bossRushTotalTime=0,bossRushTotalGems=0,weeklyTrialMode=false,weeklyTrialKey='',weeklyTrialQueue=[],weeklyTrialIndex=0,weeklyTrialTotalTime=0,weeklyTrialTotalGems=0;
+let mode='menu',level=0,hearts=3,total=0,worldGems=0,elapsed=0,worldTime=0,camera=0,checkpoint=80,checkpointId=0,invuln=0,dashCD=0,shield=0,particles=[],coins=[],enemies=[],platforms=[],powerups=[],shots=[],boss=null,keys={},last=0,acc=0,muted=false,audio=null,jumpBuffer=0,coyote=0,groundId=-1,runPhase=0,hero={},portal=0,portalY=470,worldWidth=0,toastTimer=0,ticks=0,tubes=[],tubeCD=0,blocks=[],drops=[],fireballs=[],starTimer=0,fireCD=0,musicTimer=null,musicBeat=0,musicNodes=new Set(),dailyMode=false,dailyDate='',dailySeed=0,bossDefeated=false,bossRushMode=false,bossRushQueue=[],bossRushIndex=0,bossRushTotalTime=0,bossRushTotalGems=0,weeklyTrialMode=false,weeklyTrialKey='',weeklyTrialQueue=[],weeklyTrialIndex=0,weeklyTrialTotalTime=0,weeklyTrialTotalGems=0,weeklyTrialGuardians=0;
 function persist(){try{localStorage.setItem(saveKey,JSON.stringify(saved))}catch{}}
 
 const SKINS=[
@@ -128,7 +128,7 @@ function startBossRush(){
 function startWeeklyTrial(){
  const trial=weeklyTrialSpec(dateKey());
  if(trial.worlds.length!==3)return false;
- weeklyTrialQueue=trial.worlds;weeklyTrialKey=trial.weekKey;weeklyTrialIndex=0;weeklyTrialTotalTime=0;weeklyTrialTotalGems=0;
+ weeklyTrialQueue=trial.worlds;weeklyTrialKey=trial.weekKey;weeklyTrialIndex=0;weeklyTrialTotalTime=0;weeklyTrialTotalGems=0;weeklyTrialGuardians=0;
  return start(weeklyTrialQueue[0],{weeklyTrial:true,allowLocked:true});
 }
 function startNewGamePlus(){
@@ -200,7 +200,7 @@ function completeWorld(){
   mode='boss-rush-clear';title='BOSS RUSH CONQUERED';
   message='Eight regional Wardens defeated · '+bossRushTotalGems+' crystals collected · '+bossRushTotalTime+' sec · +'+reward+' crystals';
  }else if(weeklyTrialMode){
-  weeklyTrialTotalTime+=Math.round(worldTime);weeklyTrialTotalGems+=worldGems;
+  weeklyTrialTotalTime+=Math.round(worldTime);weeklyTrialTotalGems+=worldGems;weeklyTrialGuardians+=bossDefeated?1:0;
   if(weeklyTrialIndex+1<weeklyTrialQueue.length){
    weeklyTrialIndex++;level=weeklyTrialQueue[weeklyTrialIndex];hearts=Math.min(3,hearts+1);mode='playing';keys={};
    $('overlay').style.display='none';document.body.classList.add('playing');loadLevel(true);startMusic();
@@ -223,7 +223,19 @@ function completeWorld(){
   mode=level===WORLD_COUNT-1?'won':'clear';title=level===WORLD_COUNT-1?'THE SKY IS YOURS':'WORLD COMPLETE';
   message=names[level]+' · '+worldGems+' crystals · '+('★'.repeat(stars))+('☆'.repeat(3-stars))+' · '+Math.floor(worldTime/60)+'m '+Math.floor(worldTime%60)+'s · +'+reward+' crystals';
  }
- syncDailyStats();evaluateAchievements();persist();keys={};document.body.classList.remove('playing');notifyQuestHub();
+ syncDailyStats();evaluateAchievements();persist();
+ let onlineResult;
+ if(bossRushMode){
+  onlineResult={mode:'boss_rush',score:bossRushTotalGems,timeSeconds:bossRushTotalTime,worldsCleared:8,guardiansDefeated:8,crystalsEarned:reward,cycle:saved.newGamePlus||0};
+ }else if(weeklyTrialMode){
+  onlineResult={mode:'weekly_trial',score:weeklyTrialTotalGems,timeSeconds:weeklyTrialTotalTime,worldsCleared:3,guardiansDefeated:weeklyTrialGuardians,crystalsEarned:reward,cycle:saved.newGamePlus||0};
+ }else if(dailyMode){
+  onlineResult={mode:'daily',score:worldGems,timeSeconds:Math.round(worldTime),worldsCleared:1,guardiansDefeated:bossDefeated?1:0,crystalsEarned:reward,cycle:saved.newGamePlus||0};
+ }else{
+  onlineResult={mode:(Number(saved.newGamePlus)||0)>0?'new_game_plus':'campaign',score:worldGems,timeSeconds:Math.round(worldTime),worldsCleared:1,guardiansDefeated:bossDefeated?1:0,crystalsEarned:reward,cycle:saved.newGamePlus||0};
+ }
+ window.dispatchEvent(new CustomEvent('ethan-quest-run-complete',{detail:onlineResult}));
+ keys={};document.body.classList.remove('playing');notifyQuestHub();
  const d=panel(title,message);
  if(dailyMode){d.append(button('Retry daily challenge',startDaily,true));d.append(button('Return to Quest Hub',menu))}
  else if(bossRushMode){d.append(button('Run Boss Rush again',startBossRush,true));d.append(button('Return to Quest Hub',menu))}
