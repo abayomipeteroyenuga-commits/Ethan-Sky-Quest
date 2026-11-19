@@ -16,10 +16,47 @@
    <div class="endgame-mode"><span class="endgame-icon">∞</span><strong>New Game+</strong><small>Replay all 40 worlds with tougher enemies, faster attacks and stronger Guardians.</small><small id="new-game-plus-status">Clear all 40 worlds in this cycle to unlock.</small><button class="hub-primary" id="start-new-game-plus" disabled>Begin New Game+ →</button></div>
   </div>
  </article>
+ <article class="hub-card online-card" id="online-league">
+  <div class="card-topline"><span class="mini-label">ETHAN SKY LEAGUE</span><span class="journey-mark">GLOBAL COMPETITION</span></div>
+  <h3>Play locally. Rank globally.</h3>
+  <p class="card-subtitle">Create your Ethan Quest player account, submit completed runs and compete for a place on the monthly Sky League leaderboard.</p>
+  <div class="online-layout">
+   <section class="online-account">
+    <div class="online-panel-title"><span class="endgame-icon">✦</span><div><strong>Player account</strong><small id="online-account-caption">Sign in to save your competition identity.</small></div></div>
+    <label for="online-email">EMAIL ADDRESS</label>
+    <input id="online-email" type="email" maxlength="254" placeholder="you@example.com" autocomplete="email">
+    <label for="online-username">PLAYER NAME</label>
+    <input id="online-username" type="text" maxlength="20" placeholder="SkyChampion" autocomplete="nickname" pattern="[A-Za-z0-9_]{3,20}">
+    <button class="hub-primary" id="online-signin">Send secure sign-in link →</button>
+    <button class="hub-secondary" id="online-signout" hidden>Sign out</button>
+    <p class="online-account-status" id="online-account-status" role="status" aria-live="polite">Online accounts are optional. Your local adventure remains available without signing in.</p>
+    <div class="online-user" id="online-user" hidden></div>
+   </section>
+   <section class="online-board">
+    <div class="online-board-toolbar">
+     <div class="online-panel-title"><span class="endgame-icon">🏆</span><div><strong>Leaderboard</strong><small id="online-season-name">November 2026 Sky League</small></div></div>
+     <button class="hub-secondary" id="online-refresh" type="button">Refresh</button>
+    </div>
+    <div class="online-filters">
+     <label for="online-scope">RANKING PERIOD</label>
+     <select id="online-scope"><option value="season">This season</option><option value="all_time">All-time</option></select>
+     <label for="online-mode">CHALLENGE</label>
+     <select id="online-mode">
+      <option value="campaign">World runs</option><option value="boss_rush">Boss Rush</option><option value="weekly_trial">Weekly Sky Trials</option><option value="daily">Daily challenge</option><option value="new_game_plus">New Game+</option>
+     </select>
+    </div>
+    <div class="online-table-wrap">
+     <table class="online-table"><thead><tr><th>#</th><th>PLAYER</th><th>SCORE</th><th>TIME</th></tr></thead><tbody id="online-leaderboard"><tr><td colspan="4">Loading leaderboard…</td></tr></tbody></table>
+    </div>
+    <p class="online-board-note" id="online-board-note">Best verified submission per player is shown for each challenge.</p>
+   </section>
+  </div>
+  <p class="online-integrity-note" id="online-result-note">Completed runs are submitted only when you are signed in and online. Leaderboards use account-linked scores; local progress is never overwritten.</p>
+ </article>
  </div>
  <div class="hub-lower"><article class="hub-card regions-card"><div class="section-title"><div><span class="mini-label">THE GREAT EXPEDITION</span><h3>Eight regions. Forty worlds.</h3></div><button class="hub-secondary" id="region-world-map">View map</button></div><div id="region-list" class="region-list"></div></article><article class="hub-card achievements-card"><div class="section-title"><div><span class="mini-label">MILESTONES</span><h3>Hall of achievements</h3></div><span id="achievement-count" class="achievement-count">0 / 5</span></div><div id="achievement-list" class="achievement-list"></div></article></div>
  <div class="hub-footnote"><span>✦</span> Your adventure saves automatically on this device. Global online rankings and cross-device saves require a future Ethan account connection.</div><div class="hub-tools"><div><strong>Protect your adventure</strong><small>Download a backup or restore progress on this browser.</small></div><div class="hub-tool-actions"><button class="hub-secondary" id="export-save">Export progress</button><button class="hub-secondary" id="import-save">Import backup</button><input id="import-save-file" type="file" accept="application/json,.json" hidden></div></div><div id="hub-feedback" class="hub-feedback" role="status" aria-live="polite"></div>
 </section>
-<footer><div><span class="badge">HOW TO PLAY</span><span><kbd>←</kbd><kbd>→</kbd> Move</span><span><kbd>Space</kbd> Double jump</span><span><kbd>Shift</kbd> Dash</span><span><kbd>↓</kbd> Enter tube</span><span><kbd>F</kbd> Fireball</span><span><kbd>P</kbd> Pause</span></div><p>Hit blocks from below · Mushroom grows · Star lasts 8 seconds · F fires</p></footer></main><script type="module" src="game.js?v=endgame-v5"></script><script type="module" src="quest-hub.js?v=endgame-v5"></script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
+<footer><div><span class="badge">HOW TO PLAY</span><span><kbd>←</kbd><kbd>→</kbd> Move</span><span><kbd>Space</kbd> Double jump</span><span><kbd>Shift</kbd> Dash</span><span><kbd>↓</kbd> Enter tube</span><span><kbd>F</kbd> Fireball</span><span><kbd>P</kbd> Pause</span></div><p>Hit blocks from below · Mushroom grows · Star lasts 8 seconds · F fires</p></footer></main><script src="./online-config.js?v=online-v6"></script><script type="module" src="game.js?v=online-v6"></script><script type="module" src="quest-hub.js?v=online-v6"></script><script type="module" src="quest-online.js?v=online-v6"></script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
 <script async src="https://track.ethandigitalacademy.org/ethan-analytics.js" data-ethan-app="ethan-quest" data-ethan-public-id="c4013d16-db9e-4160-bb72-243384d4c843"></script>
 </body></html>
